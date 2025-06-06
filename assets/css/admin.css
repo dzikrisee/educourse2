@@ -1,0 +1,253 @@
+/* Admin-specific styles to prevent conflicts */
+
+/* Ensure white background for admin */
+body {
+  background-color: #f8f9fa !important;
+  color: #333 !important;
+}
+
+/* Admin Cards */
+.admin-content .card {
+  background: white !important;
+  color: #333 !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+/* Admin Tables */
+.admin-content .table {
+  background: white !important;
+  color: #333 !important;
+}
+
+.admin-content .table th {
+  background: #f8f9fa !important;
+  color: #333 !important;
+  border-bottom: 2px solid #dee2e6 !important;
+}
+
+.admin-content .table td {
+  background: white !important;
+  color: #333 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.admin-content .table tbody tr:hover {
+  background: #f8f9fa !important;
+}
+
+/* Admin Forms */
+.admin-content .form-control {
+  background: white !important;
+  color: #333 !important;
+  border: 2px solid #ddd !important;
+}
+
+.admin-content .form-control:focus {
+  border-color: #74b9ff !important;
+  background: white !important;
+  color: #333 !important;
+}
+
+/* Admin Flash Messages */
+.admin-content .flash-message {
+  color: inherit !important;
+}
+
+.admin-content .flash-success {
+  background: #d4edda !important;
+  color: #155724 !important;
+  border: 1px solid #c3e6cb !important;
+}
+
+.admin-content .flash-error {
+  background: #f8d7da !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb !important;
+}
+
+/* Sidebar Override */
+.sidebar {
+  background: #2d3436 !important;
+  color: white !important;
+}
+
+.sidebar a {
+  color: white !important;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: #636e72 !important;
+  color: white !important;
+}
+
+/* Navbar Override */
+.navbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+.navbar a {
+  color: white !important;
+}
+
+/* Badge Styles for Admin */
+.admin-content .badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white !important;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.admin-content .badge-active {
+  background: #00b894 !important;
+}
+.admin-content .badge-completed {
+  background: #74b9ff !important;
+}
+.admin-content .badge-cancelled {
+  background: #fd79a8 !important;
+}
+.admin-content .badge-admin {
+  background: #e74c3c !important;
+}
+.admin-content .badge-user {
+  background: #74b9ff !important;
+}
+
+/* Table Container */
+.admin-content .table-container {
+  background: white !important;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  margin: 2rem 0;
+}
+
+/* Search Box */
+.admin-content .search-box {
+  background: white !important;
+}
+
+.admin-content .search-input {
+  background: white !important;
+  color: #333 !important;
+  border: 2px solid #ddd !important;
+}
+
+/* Buttons in Admin */
+.admin-content .btn {
+  background: #74b9ff !important;
+  color: white !important;
+  border: none !important;
+}
+
+.admin-content .btn:hover {
+  background: #0984e3 !important;
+  color: white !important;
+}
+
+.admin-content .btn-primary {
+  background: #74b9ff !important;
+}
+
+.admin-content .btn-primary:hover {
+  background: #0984e3 !important;
+}
+
+.admin-content .btn-danger {
+  background: #fd79a8 !important;
+}
+
+.admin-content .btn-danger:hover {
+  background: #e84393 !important;
+}
+
+/* Pagination in Admin */
+.admin-content .pagination a,
+.admin-content .pagination span {
+  background: white !important;
+  color: #333 !important;
+  border: 1px solid #ddd !important;
+}
+
+.admin-content .pagination a:hover {
+  background: #74b9ff !important;
+  color: white !important;
+}
+
+.admin-content .pagination .current {
+  background: #74b9ff !important;
+  color: white !important;
+}
+
+/* Form Container */
+.admin-content .form-container {
+  background: white !important;
+  color: #333 !important;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Labels */
+.admin-content label {
+  color: #333 !important;
+  font-weight: bold;
+}
+
+/* Select Elements */
+.admin-content select {
+  background: white !important;
+  color: #333 !important;
+  border: 2px solid #ddd !important;
+}
+
+.admin-content select:focus {
+  border-color: #74b9ff !important;
+}
+
+/* Text Areas */
+.admin-content textarea {
+  background: white !important;
+  color: #333 !important;
+  border: 2px solid #ddd !important;
+}
+
+.admin-content textarea:focus {
+  border-color: #74b9ff !important;
+}
+
+/* Force white background for any potential dark elements */
+.admin-content * {
+  background-color: inherit !important;
+}
+
+.admin-content .card,
+.admin-content .table-container,
+.admin-content .form-container {
+  background-color: white !important;
+}
+
+/* Chart Container */
+.admin-content canvas {
+  background: white !important;
+}
+
+/* Statistics Cards */
+.admin-content .card-grid .card {
+  background: white !important;
+  color: #333 !important;
+}
+
+.admin-content .card h3 {
+  color: #2d3436 !important;
+}
+
+.admin-content .card p {
+  color: #636e72 !important;
+}
