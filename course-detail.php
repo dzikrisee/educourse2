@@ -27,7 +27,7 @@ if (!$course) {
     exit();
 }
 
-// Check if user is already enrolled
+// Check if user is already enrolled - FUNGSI YANG TERBUKTI BEKERJA
 $is_enrolled = false;
 if (isLoggedIn()) {
     $stmt = $pdo->prepare("SELECT id FROM enrollments WHERE user_id = ? AND course_id = ?");
@@ -35,7 +35,7 @@ if (isLoggedIn()) {
     $is_enrolled = (bool)$stmt->fetch();
 }
 
-// Handle enrollment
+// Handle enrollment - FUNGSI YANG TERBUKTI BEKERJA
 if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
     $stmt = $pdo->prepare("INSERT INTO enrollments (user_id, course_id) VALUES (?, ?)");
     if ($stmt->execute([$_SESSION['user_id'], $course_id])) {
@@ -57,13 +57,10 @@ if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/courses-detail.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
 </head>
 
 <body>
-    <?php
-    include 'partials/navbar.php'
-    ?>
+    <?php include 'partials/navbar.php'; ?>
 
     <div class="container">
         <!-- Course Header -->
@@ -197,20 +194,29 @@ if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
                                     Go to My Courses
                                 </a>
                             <?php else: ?>
-                                <form method="POST">
-                                    <button type="submit" name="enroll" class="btn-enroll btn-primary">
+                                <!-- FORM ENROLLMENT YANG DIPERBAIKI -->
+                                <form method="POST" id="enrollmentForm" style="margin-bottom: 1rem;">
+                                    <!-- PASTIKAN ADA INPUT HIDDEN -->
+                                    <input type="hidden" name="enroll" value="1">
+                                    <input type="hidden" name="course_id" value="<?= $course_id ?>">
+
+                                    <!-- BUTTON DENGAN STYLING YANG BENAR -->
+                                    <button type="submit"
+                                        id="enrollButton"
+                                        class="btn-enroll btn-primary"
+                                        style="width: 100%; border: none; cursor: pointer; pointer-events: auto !important;">
                                         <i class="fas fa-play-circle"></i>
-                                        Enroll Now
+                                        Book Now
                                     </button>
                                 </form>
                             <?php endif; ?>
                         <?php else: ?>
                             <div class="enrollment-note" style="margin-bottom: 1.5rem;">
-                                <p>Please login to enroll in this course</p>
+                                <p>Please login to booking in this course</p>
                             </div>
                             <a href="login.php" class="btn-enroll btn-login">
                                 <i class="fas fa-sign-in-alt"></i>
-                                Login to Enroll
+                                Login to Booking
                             </a>
                         <?php endif; ?>
 
@@ -265,9 +271,7 @@ if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
         </div>
     </div>
 
-    <?php
-    include 'partials/footer.php'
-    ?>
+    <?php include 'partials/footer.php'; ?>
 
     <!-- Flash Messages -->
     <?php
@@ -280,19 +284,21 @@ if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
         </div>
     <?php endif; ?>
 
-    <script src="assets/js/script.js"></script>
+    <!-- JAVASCRIPT YANG DIPERBAIKI - MINIMAL DAN TIDAK CONFLICT -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fade in animation on load
+            // Fade in animation - AMAN
             const fadeElements = document.querySelectorAll('.fade-in');
             fadeElements.forEach((el, index) => {
                 setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
+                    if (el.style) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
                 }, index * 200);
             });
 
-            // Auto-hide flash messages
+            // Auto-hide flash messages - AMAN
             const flashMessage = document.querySelector('.flash-message');
             if (flashMessage) {
                 setTimeout(() => {
@@ -301,18 +307,25 @@ if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
                 }, 5000);
             }
 
-            // Enrollment form loading state
-            const enrollForm = document.querySelector('form[method="POST"]');
-            if (enrollForm) {
-                enrollForm.addEventListener('submit', function() {
-                    const button = this.querySelector('button[type="submit"]');
-                    const originalText = button.innerHTML;
-                    button.innerHTML = '<div class="loading"></div> Enrolling...';
-                    button.disabled = true;
+            // ENROLLMENT FORM HANDLING - MINIMAL DAN AMAN
+            const enrollForm = document.getElementById('enrollmentForm');
+            const enrollButton = document.getElementById('enrollButton');
+
+            if (enrollForm && enrollButton) {
+                // PASTIKAN TIDAK ADA EVENT YANG PREVENT DEFAULT
+                enrollForm.addEventListener('submit', function(e) {
+                    // JANGAN PREVENT DEFAULT - BIARKAN FORM SUBMIT NORMAL
+                    console.log('Form submitting normally...');
+
+                    // HANYA UBAH TEXT BUTTON UNTUK FEEDBACK
+                    enrollButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
+                    enrollButton.disabled = true;
+
+                    // JANGAN ADA RETURN FALSE ATAU PREVENT DEFAULT
                 });
             }
 
-            // Smooth scroll for internal links
+            // Smooth scroll - AMAN
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -327,6 +340,31 @@ if ($_POST && isset($_POST['enroll']) && isLoggedIn() && !$is_enrolled) {
             });
         });
     </script>
+
+    <!-- CSS OVERRIDE UNTUK MEMASTIKAN BUTTON BISA DIKLIK -->
+    <style>
+        /* PASTIKAN BUTTON ENROLLMENT BISA DIKLIK */
+        #enrollmentForm,
+        #enrollButton {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 999 !important;
+            position: relative !important;
+        }
+
+        /* PASTIKAN TIDAK ADA OVERLAY YANG MENGHALANGI */
+        .btn-enroll {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+        }
+
+        /* HAPUS KEMUNGKINAN CSS YANG MENGHALANGI */
+        .enrollment-section form,
+        .enrollment-section button {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+        }
+    </style>
 </body>
 
 </html>

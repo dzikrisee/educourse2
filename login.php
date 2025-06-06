@@ -115,11 +115,7 @@ if ($_POST) {
                 <h4>🎯 Demo Accounts</h4>
                 <div class="demo-account">
                     <span class="demo-label">Admin:</span>
-                    <span class="demo-credentials">admin@educourse.com / admin123</span>
-                </div>
-                <div class="demo-account">
-                    <span class="demo-label">User:</span>
-                    <span class="demo-credentials">user@educourse.com / user123</span>
+                    <span class="demo-credentials">admin@educourse.com / admin2</span>
                 </div>
             </div>
         </div>

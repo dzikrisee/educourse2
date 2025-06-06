@@ -35,7 +35,10 @@
                     <ul class="footer-links">
                         <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                         <li><a href="courses.php"><i class="fas fa-book"></i> All Courses</a></li>
-                        <li><a href="profile.php"><i class="fas fa-user"></i> My Profile</a></li>
+                        <?php if (isLoggedIn()): ?>
+                            <li><a href="profile.php"><i class="fas fa-user"></i> My Profile</a></li>
+                        <?php endif; ?>
+
                         <li><a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                         <li><a href="register.php"><i class="fas fa-user-plus"></i> Register</a></li>
                     </ul>
