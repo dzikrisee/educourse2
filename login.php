@@ -1,7 +1,6 @@
 <?php
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
-include 'partials/navbar.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
@@ -56,60 +55,107 @@ if ($_POST) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - EduCourse</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 
 <body>
-    <!-- Header -->
-    <!-- <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.php" class="logo">EduCourse</a>
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="courses.php">Courses</a></li>
-                <li><a href="register.php">Register</a></li>
-            </ul>
-        </div>
-    </nav> -->
 
-    <div class="container">
-        <div class="form-container">
-            <h2 class="text-center mb-2">Login to Your Account</h2>
+    <?php
+    include 'partials/navbar.php'
+    ?>
+
+    <div class="login-container">
+        <!-- Floating Background Shapes -->
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+
+        <div class="login-card fade-in">
+            <div class="login-header">
+                <h1>Welcome Back! 👋</h1>
+                <p>Please sign in to your account</p>
+            </div>
 
             <?php if ($error): ?>
                 <div class="flash-message flash-error">
-                    <?= htmlspecialchars($error) ?>
+                    ❌ <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
 
-            <form method="POST" id="loginForm">
+            <form method="POST" class="login-form" id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <span class="form-icon">📧</span>
                     <input type="email" id="email" name="email" class="form-control"
+                        placeholder="Enter your email address"
                         value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
+                    <span class="form-icon">🔒</span>
+                    <input type="password" id="password" name="password" class="form-control"
+                        placeholder="Enter your password" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <button type="submit" class="login-btn">
+                    🚀 Sign In
+                </button>
             </form>
 
-            <div class="text-center mt-2">
-                <p>Don't have an account? <a href="register.php">Register here</a></p>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="register.php">Create one here</a></p>
             </div>
 
             <!-- Demo Accounts Info -->
-            <div class="card mt-2">
-                <h4>Demo Accounts</h4>
-                <p><strong>Admin:</strong> admin@educourse.com | password: admin123</p>
-                <p><strong>User:</strong> user@educourse.com | password: user123</p>
+            <div class="demo-accounts">
+                <h4>🎯 Demo Accounts</h4>
+                <div class="demo-account">
+                    <span class="demo-label">Admin:</span>
+                    <span class="demo-credentials">admin@educourse.com / admin123</span>
+                </div>
+                <div class="demo-account">
+                    <span class="demo-label">User:</span>
+                    <span class="demo-credentials">user@educourse.com / user123</span>
+                </div>
             </div>
         </div>
+
+
     </div>
 
-    <script src="assets/js/script.js"></script>
+    <?php
+    include 'partials/footer.php'
+    ?>
+
+    <script>
+        // Add smooth animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading animation to form
+            const form = document.getElementById('loginForm');
+            const submitBtn = document.querySelector('.login-btn');
+
+            form.addEventListener('submit', function() {
+                submitBtn.innerHTML = '⏳ Signing In...';
+                submitBtn.disabled = true;
+            });
+
+            // Add focus animations to form fields
+            const formControls = document.querySelectorAll('.form-control');
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                });
+
+                control.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

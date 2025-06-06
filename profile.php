@@ -121,23 +121,11 @@ if ($_POST && isset($_POST['change_password'])) {
 </head>
 
 <body>
-    <!-- Header -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.php" class="logo">EduCourse</a>
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="courses.php">Courses</a></li>
-                <li><a href="profile.php" class="active">Profile</a></li>
-                <?php if (isAdmin()): ?>
-                    <li><a href="admin/index.php">Admin</a></li>
-                <?php endif; ?>
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+    <?php
+    include 'partials/navbar.php'
+    ?>
 
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <h1>My Profile</h1>
 
         <!-- Flash Messages -->
@@ -162,7 +150,7 @@ if ($_POST && isset($_POST['change_password'])) {
                         <img src="assets/uploads/users/<?= htmlspecialchars($user['photo']) ?>"
                             alt="Profile Photo" id="current-photo"
                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-bottom: 1rem;"
-                            onerror="this.src='assets/uploads/users/default.jpg'">
+                            onerror="this.src='assets/uploads/users/profile-default.jpg'">
                     </div>
 
                     <div class="form-group">
