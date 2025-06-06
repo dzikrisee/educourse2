@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
+include 'partials/navbar.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
@@ -13,7 +14,7 @@ $error = '';
 if ($_POST) {
     $email = sanitize($_POST['email']);
     $password = $_POST['password'];
-    
+
     if (empty($email) || empty($password)) {
         $error = 'Please fill in all fields';
     } elseif (!isValidEmail($email)) {
@@ -23,16 +24,16 @@ if ($_POST) {
         $stmt = $pdo->prepare("SELECT id, name, email, password, role FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
-        
+
         if ($user && verifyPassword($password, $user['password'])) {
             // Set session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
-            
+
             setFlashMessage('Login successful! Welcome back, ' . $user['name']);
-            
+
             // Redirect based on role
             if ($user['role'] === 'admin') {
                 header('Location: admin/index.php');
@@ -49,15 +50,17 @@ if ($_POST) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - EduCourse</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <!-- Header -->
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="nav-container">
             <a href="index.php" class="logo">EduCourse</a>
             <ul class="nav-links">
@@ -66,37 +69,37 @@ if ($_POST) {
                 <li><a href="register.php">Register</a></li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 
     <div class="container">
         <div class="form-container">
             <h2 class="text-center mb-2">Login to Your Account</h2>
-            
+
             <?php if ($error): ?>
                 <div class="flash-message flash-error">
                     <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
-            
+
             <form method="POST" id="loginForm">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control" 
-                           value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                    <input type="email" id="email" name="email" class="form-control"
+                        value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-control" required>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
             </form>
-            
+
             <div class="text-center mt-2">
                 <p>Don't have an account? <a href="register.php">Register here</a></p>
             </div>
-            
+
             <!-- Demo Accounts Info -->
             <div class="card mt-2">
                 <h4>Demo Accounts</h4>
@@ -108,4 +111,5 @@ if ($_POST) {
 
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
